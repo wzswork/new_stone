@@ -5,15 +5,19 @@
   
 
   
-  <title>荆石亭</title>
+  <title>vue.nextTick解析 | 荆石亭</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="荆石亭">
-<meta property="og:url" content="https://wzswork.github.io/index.html">
+  <meta name="description" content="nextTick是vue提供的一个api。主要用途是将传入的回调函数，放在dom更新之后来调用。比如你想要将某段逻辑放在新的dom生成之后再调用等等，是一个常用api。 vue的数据更新vue通过劫持getter和setter来实现了数据绑定和响应式的页面，但是每一次数据的修改更新并不会立即反应到真实的dom上去。简单的来说，在数据修改之后，会将修改先储存到一个队列之中，然后会等待本次事件循环中的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue.nextTick解析">
+<meta property="og:url" content="https://wzswork.github.io/2019/04/20/vue-nextTick解析/index.html">
 <meta property="og:site_name" content="荆石亭">
+<meta property="og:description" content="nextTick是vue提供的一个api。主要用途是将传入的回调函数，放在dom更新之后来调用。比如你想要将某段逻辑放在新的dom生成之后再调用等等，是一个常用api。 vue的数据更新vue通过劫持getter和setter来实现了数据绑定和响应式的页面，但是每一次数据的修改更新并不会立即反应到真实的dom上去。简单的来说，在数据修改之后，会将修改先储存到一个队列之中，然后会等待本次事件循环中的">
 <meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2019-04-23T14:16:39.210Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="荆石亭">
+<meta name="twitter:title" content="vue.nextTick解析">
+<meta name="twitter:description" content="nextTick是vue提供的一个api。主要用途是将传入的回调函数，放在dom更新之后来调用。比如你想要将某段逻辑放在新的dom生成之后再调用等等，是一个常用api。 vue的数据更新vue通过劫持getter和setter来实现了数据绑定和响应式的页面，但是每一次数据的修改更新并不会立即反应到真实的dom上去。简单的来说，在数据修改之后，会将修改先储存到一个队列之中，然后会等待本次事件循环中的">
   
     <link rel="alternate" href="/atom.xml" title="荆石亭" type="application/atom+xml">
   
@@ -60,9 +64,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-vue-nextTick解析" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-vue-nextTick解析" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/04/20/vue-nextTick解析/" class="article-date">
   <time datetime="2019-04-20T11:30:26.000Z" itemprop="datePublished">2019-04-20</time>
@@ -75,8 +77,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/20/vue-nextTick解析/">vue.nextTick解析</a>
+    <h1 class="article-title" itemprop="name">
+      vue.nextTick解析
     </h1>
   
 
@@ -124,115 +126,19 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-Https协议" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/03/02/Https协议/" class="article-date">
-  <time datetime="2019-03-02T15:09:22.000Z" itemprop="datePublished">2019-03-02</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/02/Https协议/">Https协议</a>
-    </h1>
+    <a href="/2019/03/02/Https协议/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Https协议</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>https并不是一个新协议，而是http协议加上ssl协议或者tls协议的一个组合称呼。<br>http协议本身是无状态的协议，在网络上也是明文传输，相当于裸奔。这样传输一些敏感信息如用户名，密码等等就十分不安全。<br>ssl协议，安全套接字层协议，是在套接字层进行加密操作；tls协议，传输层安全协议，则是构建加密传输通道。<br>二者都相当于是在http协议与TCP协议之间加了一层安全保证。</p>
-<p>ssl3.0协议的后续升级版本就是tls协议，二者差距比较小。</p>
-<p>ssl协议分为两层，上层包括上层为SSL握手协议（SSL handshake protocol）、SSL密码变化协议（SSL change cipher spec protocol）和SSL警告协议（SSL alert protocol），而下层则是SSL记录协议（SSL record protocol）。</p>
-<ul>
-<li><p>SSL握手协议：是SSL协议非常重要的组成部分，用来协商通信过程中使用的加密套件（加密算法、密钥交换算法和MAC算法等）、在服务器和客户端之间安全地交换密钥、实现服务器和客户端的身份验证。</p>
-</li>
-<li><p>SSL密码变化协议：客户端和服务器端通过密码变化协议通知对端，随后的报文都将使用新协商的加密套件和密钥进行保护和传输。</p>
-</li>
-<li><p>SSL警告协议：用来向通信对端报告告警信息，消息中包含告警的严重级别和描述。</p>
-</li>
-<li><p>SSL记录协议：主要负责对上层的数据（SSL握手协议、SSL密码变化协议、SSL警告协议和应用层协议报文）进行分块、计算并添加MAC值、加密，并把处理后的记录块传输给对端。</p>
-</li>
-</ul>
-<p>ssl协议处于应用层与传输层之间，会对http的报文内容进行各种处理：</p>
-<ul>
-<li><p>数据传输的机密性：利用对称密钥算法对传输的数据进行加密。</p>
-</li>
-<li><p>身份验证机制：基于证书利用数字签名方法对服务器和客户端进行身份验证，其中客户端的身份验证是可选的。</p>
-</li>
-<li><p>消息完整性验证：消息传输过程中使用MAC算法来检验消息的完整性。</p>
-</li>
-</ul>
-<p>对称密钥的交换是在握手时，利用非对称加密的方式交换密钥。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://wzswork.github.io/2019/03/02/Https协议/" data-id="cjutvi1z800002ctf8kmh69nw" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
   
 </article>
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/03/02/hello-world/" class="article-date">
-  <time datetime="2019-03-02T03:35:44.966Z" itemprop="datePublished">2019-03-02</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/02/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://wzswork.github.io/2019/03/02/hello-world/" data-id="cjutvi1zj00022ctfq3ys67pf" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-
 
 </section>
         
