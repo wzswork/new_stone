@@ -96,17 +96,17 @@
 
 
 
-  <meta name="description" content="nextTick是vue提供的一个api。主要用途是将传入的回调函数，放在dom更新之后来调用。比如你想要将某段逻辑放在新的dom生成之后再调用等等，是一个常用api。 vue的数据更新vue通过劫持getter和setter来实现了数据绑定和响应式的页面，但是每一次数据的修改更新并不会立即反应到真实的dom上去。简单的来说，在数据修改之后，会将修改先储存到一个队列之中，然后会等待本次事件循环中的">
+  <meta name="description" content="nextTick是vue提供的一个api。主要用途是将传入的回调函数，放在dom更新之后来调用。比如你想要将某段逻辑放在新的dom生成之后再调用等等，是一个常用api。接下来，我们仔细研究一下，这一切究竟是怎么实现的，既然他的主要用途是在数据响应式更新dom之后运行回调，我们就先了解一下vue的数据更新是什么情况。 vue的数据更新vue通过劫持getter和setter来实现了数据绑定和响应式的">
 <meta property="og:type" content="article">
 <meta property="og:title" content="vue.nextTick解析">
 <meta property="og:url" content="https://wzswork.github.io/2019/04/20/vue-nextTick解析/index.html">
 <meta property="og:site_name" content="荆石亭">
-<meta property="og:description" content="nextTick是vue提供的一个api。主要用途是将传入的回调函数，放在dom更新之后来调用。比如你想要将某段逻辑放在新的dom生成之后再调用等等，是一个常用api。 vue的数据更新vue通过劫持getter和setter来实现了数据绑定和响应式的页面，但是每一次数据的修改更新并不会立即反应到真实的dom上去。简单的来说，在数据修改之后，会将修改先储存到一个队列之中，然后会等待本次事件循环中的">
+<meta property="og:description" content="nextTick是vue提供的一个api。主要用途是将传入的回调函数，放在dom更新之后来调用。比如你想要将某段逻辑放在新的dom生成之后再调用等等，是一个常用api。接下来，我们仔细研究一下，这一切究竟是怎么实现的，既然他的主要用途是在数据响应式更新dom之后运行回调，我们就先了解一下vue的数据更新是什么情况。 vue的数据更新vue通过劫持getter和setter来实现了数据绑定和响应式的">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:updated_time" content="2019-04-23T14:16:39.210Z">
+<meta property="og:updated_time" content="2019-04-24T14:30:51.981Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vue.nextTick解析">
-<meta name="twitter:description" content="nextTick是vue提供的一个api。主要用途是将传入的回调函数，放在dom更新之后来调用。比如你想要将某段逻辑放在新的dom生成之后再调用等等，是一个常用api。 vue的数据更新vue通过劫持getter和setter来实现了数据绑定和响应式的页面，但是每一次数据的修改更新并不会立即反应到真实的dom上去。简单的来说，在数据修改之后，会将修改先储存到一个队列之中，然后会等待本次事件循环中的">
+<meta name="twitter:description" content="nextTick是vue提供的一个api。主要用途是将传入的回调函数，放在dom更新之后来调用。比如你想要将某段逻辑放在新的dom生成之后再调用等等，是一个常用api。接下来，我们仔细研究一下，这一切究竟是怎么实现的，既然他的主要用途是在数据响应式更新dom之后运行回调，我们就先了解一下vue的数据更新是什么情况。 vue的数据更新vue通过劫持getter和setter来实现了数据绑定和响应式的">
 
 
 
@@ -349,7 +349,7 @@
                 
                   <span class="post-meta-item-text">Bearbeitet am</span>
                 
-                <time title="Geändert am: 2019-04-23 22:16:39" itemprop="dateModified" datetime="2019-04-23T22:16:39+08:00">2019-04-23</time>
+                <time title="Geändert am: 2019-04-24 22:30:51" itemprop="dateModified" datetime="2019-04-24T22:30:51+08:00">2019-04-24</time>
               
             
           </span>
@@ -383,7 +383,7 @@
       
 
       
-        <p>nextTick是vue提供的一个api。主要用途是将传入的回调函数，放在dom更新之后来调用。比如你想要将某段逻辑放在新的dom生成之后再调用等等，是一个常用api。</p>
+        <p>nextTick是vue提供的一个api。主要用途是将传入的回调函数，放在dom更新之后来调用。比如你想要将某段逻辑放在新的dom生成之后再调用等等，是一个常用api。接下来，我们仔细研究一下，这一切究竟是怎么实现的，既然他的主要用途是在数据响应式更新dom之后运行回调，我们就先了解一下vue的数据更新是什么情况。</p>
 <h2 id="vue的数据更新"><a href="#vue的数据更新" class="headerlink" title="vue的数据更新"></a>vue的数据更新</h2><p>vue通过劫持getter和setter来实现了数据绑定和响应式的页面，但是每一次数据的修改更新并不会立即反应到真实的dom上去。简单的来说，在数据修改之后，会将修改先储存到一个队列之中，然后会等待本次事件循环中的所有代码都运行完之后，才会去更新dom。</p>
 <p>在这里，我们可以简单的查看一下相关的代码，其实这个储存在队列中，然后延迟执行更新的操作，也是内部调用的nextTick来实现的。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Push a watcher into the watcher queue.</span></span><br><span class="line"><span class="comment"> * Jobs with duplicate IDs will be skipped unless it's</span></span><br><span class="line"><span class="comment"> * pushed when the queue is being flushed.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">queueWatcher</span> (<span class="params">watcher: Watcher</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> id = watcher.id</span><br><span class="line">  <span class="keyword">if</span> (has[id] == <span class="literal">null</span>) &#123;</span><br><span class="line">    has[id] = <span class="literal">true</span></span><br><span class="line">    <span class="keyword">if</span> (!flushing) &#123;</span><br><span class="line">      queue.push(watcher)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// if already flushing, splice the watcher based on its id</span></span><br><span class="line">      <span class="comment">// if already past its id, it will be run next immediately.</span></span><br><span class="line">      <span class="keyword">let</span> i = queue.length - <span class="number">1</span></span><br><span class="line">      <span class="keyword">while</span> (i &gt; index &amp;&amp; queue[i].id &gt; watcher.id) &#123;</span><br><span class="line">        i--</span><br><span class="line">      &#125;</span><br><span class="line">      queue.splice(i + <span class="number">1</span>, <span class="number">0</span>, watcher)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// queue the flush</span></span><br><span class="line">    <span class="keyword">if</span> (!waiting) &#123;</span><br><span class="line">      waiting = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (process.env.NODE_ENV !== <span class="string">'production'</span> &amp;&amp; !config.async) &#123;</span><br><span class="line">        flushSchedulerQueue()</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">      &#125;</span><br><span class="line">      nextTick(flushSchedulerQueue)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
