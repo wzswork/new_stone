@@ -96,17 +96,17 @@
 
 
 
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+  <meta name="description" content="对于新手来说，JS中的this实在是很容易把人给绕晕的一个东西。很多人一开始看到类似这种代码： var _this = this; function a(){     _this.a = 1; } 都会感觉莫名其妙。但是其实只要搞清楚this的几种绑定方式之后，会发现，其实机制也挺简单的。 在全局上下文中this在全局上下文中，指代的就是全局对象，浏览器里面是window，node中就是globa">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="https://wzswork.github.io/2019/03/02/hello-world/index.html">
+<meta property="og:title" content="JS的this关键字">
+<meta property="og:url" content="https://wzswork.github.io/2019/03/15/js的this关键字/index.html">
 <meta property="og:site_name" content="荆石亭">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="对于新手来说，JS中的this实在是很容易把人给绕晕的一个东西。很多人一开始看到类似这种代码： var _this = this; function a(){     _this.a = 1; } 都会感觉莫名其妙。但是其实只要搞清楚this的几种绑定方式之后，会发现，其实机制也挺简单的。 在全局上下文中this在全局上下文中，指代的就是全局对象，浏览器里面是window，node中就是globa">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:updated_time" content="2019-03-02T03:35:44.967Z">
+<meta property="og:updated_time" content="2019-04-25T14:26:46.320Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="JS的this关键字">
+<meta name="twitter:description" content="对于新手来说，JS中的this实在是很容易把人给绕晕的一个东西。很多人一开始看到类似这种代码： var _this = this; function a(){     _this.a = 1; } 都会感觉莫名其妙。但是其实只要搞清楚this的几种绑定方式之后，会发现，其实机制也挺简单的。 在全局上下文中this在全局上下文中，指代的就是全局对象，浏览器里面是window，node中就是globa">
 
 
 
@@ -114,7 +114,7 @@
 
   
   
-  <link rel="canonical" href="https://wzswork.github.io/2019/03/02/hello-world/">
+  <link rel="canonical" href="https://wzswork.github.io/2019/03/15/js的this关键字/">
 
 
 
@@ -124,7 +124,7 @@
   };
 </script>
 
-  <title>Hello World | 荆石亭</title>
+  <title>JS的this关键字 | 荆石亭</title>
   
 
 
@@ -289,7 +289,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://wzswork.github.io/2019/03/02/hello-world/">
+    <link itemprop="mainEntityOfPage" href="https://wzswork.github.io/2019/03/15/js的this关键字/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="wang zi">
@@ -306,7 +306,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hello World
+          <h1 class="post-title" itemprop="name headline">JS的this关键字
 
               
             
@@ -332,9 +332,25 @@
                 
               
 
-              <time title="Created: 2019-03-02 11:35:44" itemprop="dateCreated datePublished" datetime="2019-03-02T11:35:44+08:00">2019-03-02</time>
+              <time title="Created: 2019-03-15 21:30:26" itemprop="dateCreated datePublished" datetime="2019-03-15T21:30:26+08:00">2019-03-15</time>
             
 
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-25 22:26:46" itemprop="dateModified" datetime="2019-04-25T22:26:46+08:00">2019-04-25</time>
+              
             
           </span>
 
@@ -367,15 +383,23 @@
       
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+        <p>对于新手来说，JS中的this实在是很容易把人给绕晕的一个东西。很多人一开始看到类似这种代码：</p>
+<pre><code>var _this = this;
+function a(){
+    _this.a = 1;
+}
+</code></pre><p>都会感觉莫名其妙。但是其实只要搞清楚this的几种绑定方式之后，会发现，其实机制也挺简单的。</p>
+<h2 id="在全局上下文中"><a href="#在全局上下文中" class="headerlink" title="在全局上下文中"></a>在全局上下文中</h2><p>this在全局上下文中，指代的就是全局对象，浏览器里面是window，node中就是global。</p>
+<h2 id="在函数中"><a href="#在函数中" class="headerlink" title="在函数中"></a>在函数中</h2><p>-在被直接调用的函数中，this指代的仍然是全局对象，但是如果是严格模式，this就会变成undefined。</p>
+<p>-在被call和apply的方式调用的函数中，this的值就是call和apply的第一个参数。</p>
+<p>-在函数使用了bind()方法创建的新函数后，这个新函数的this值就是你所绑定的对象。无论这个新函数是怎么被调用的，哪怕是call和apply，或者将其作为某个对象的方法去调用也不能更改其this值，当然也无法bind第二次。</p>
+<p>-在箭头函数的使用中，this的值会直接指向上下文，也就是说，你在全局环境使用箭头函数，this就指向全局对象，你在某个方法中使用箭头函数，this就会指向该方法所属的对象。</p>
+<h2 id="在方法中"><a href="#在方法中" class="headerlink" title="在方法中"></a>在方法中</h2><p>this会指向该方法所属的对象。需要注意的是，哪怕是在原型链上继承到的方法，不是该对象本身的方法，this仍会指向该对象。</p>
+<p>另外ES6新多出的getter setter语法也是一样，this会指向正在进行get set操作的对象。</p>
+<p>还有就是使用new关键字。将函数作为对象的构造函数使用时，this会指向new关键字创造出来的临时对象。</p>
+<h2 id="在事件回调函数中"><a href="#在事件回调函数中" class="headerlink" title="在事件回调函数中"></a>在事件回调函数中</h2><p>在使用addEventListener添加的事件函数中，this会指向触发事件的元素。而不是addEventListener添加的事件函数，有些浏览器将其指向了触发事件的函数，有些浏览器并未将其指向触发事件的函数，不建议使用。</p>
+<p>在直接写在html中的内联事件函数中，this会指向其所绑定的元素。</p>
+<p>===<br>基本上this的场景就这些了，对于我们常用的场景来说，只要注意函数的不同调用方法导致的this的改变就行，毕竟在对象中作为方法之类的调用时都是符合我们直观感受的，this会指向对象本身。</p>
 
       
     </div>
@@ -406,14 +430,18 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2019/03/09/js创建对象/" rel="next" title="js创建对象">
+                <i class="fa fa-chevron-left"></i> js创建对象
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/03/02/Https协议/" rel="prev" title="Https协议">
-                Https协议 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/04/20/vue-nextTick解析/" rel="prev" title="vue.nextTick解析">
+                vue.nextTick解析 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -525,7 +553,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#在全局上下文中"><span class="nav-number">1.</span> <span class="nav-text">在全局上下文中</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在函数中"><span class="nav-number">2.</span> <span class="nav-text">在函数中</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在方法中"><span class="nav-number">3.</span> <span class="nav-text">在方法中</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在事件回调函数中"><span class="nav-number">4.</span> <span class="nav-text">在事件回调函数中</span></a></li></ol></div>
             
 
           </div>
